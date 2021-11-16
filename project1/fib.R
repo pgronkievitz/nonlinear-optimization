@@ -22,7 +22,14 @@ fib_k <- function(lower, upper, tol) {
   return(i + 1)
 }
 
-fibonacci <- function(f, lower, upper, tol, max = FALSE, logging = FALSE, plotting = FALSE, ylim = c(-10, 10)) {
+fibonacci <- function(f,
+                      lower,
+                      upper,
+                      tol,
+                      max = FALSE,
+                      logging = FALSE,
+                      plotting = FALSE,
+                      ylim = c(-10, 10)) {
   if (max) f <- function(x) -f(x)
   org_l <- lower
   org_u <- upper
