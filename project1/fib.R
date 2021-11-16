@@ -22,10 +22,13 @@ fib_k <- function(lower, upper, tol) {
   return(i + 1)
 }
 
-fibonacci <- function(f, lower, upper, tol, max = FALSE, logging = FALSE, plotting = FALSE) {
+fibonacci <- function(f, lower, upper, tol, max = FALSE, logging = FALSE, plotting = FALSE, ylim = c(-10, 10)) {
   if (max) f <- function(x) -f(x)
+  org_l <- lower
+  org_u <- upper
 
   k <- fib_k(lower, upper, tol)
+  range_len <- abs(upper - lower)
   c <- upper - phi(k - 1) / phi(k) * (upper - lower)
   d <- lower + upper - c
   for (i in seq(0, k - 4)) {
@@ -39,6 +42,11 @@ fibonacci <- function(f, lower, upper, tol, max = FALSE, logging = FALSE, plotti
     c <- upper - phi(k - 1) / phi(k) * (upper - lower)
     d <- lower + upper - c
     if (logging) cat("[", i, "] c=", c, ";\t d=", d, "\n", sep = "")
+    if (plotting) {
+      plot(f, org_l - 0.05 * range_len, org_u + 0.05 * range_len, ylim = ylim, col = "red")
+      points(c, f(c), col = "green")
+      points(d, f(d), col = "blue")
+    }
   }
   return((lower + upper) / 2)
 }
