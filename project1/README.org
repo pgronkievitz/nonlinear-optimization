@@ -18,7 +18,7 @@ W zakładach firmy ACME Inc. produkowane są kolumny głośnikowe. Inżynierowie
 2. Im większa objętość obudowy, tym szybciej może reagować membrana (jest bardziej dynamiczna). Zysk jakości uznajemy za zachowujący się jak $f(V)=\frac1{e^{V}}$.
 3. Dla łatwości obliczeń przyjmujemy, że membrana jest o $10$ jednostek[fn:1] mniejsza od /kwadratowego/ przedniego panelu obudowy (tj. $5\mathrm{cm}$ ,,zapasu''). Na dodatek grubość obudowy jest 1.36-krotnie większa od wymiaru przedniego panelu.
 4. Niechęć do większej obudowy rośnie jak $f(x)=2.6^{x}$, gdzie $x$ to wymiar frontu obudowy.
-[fn:1] jedna jednostka to $\frac13$ centymetra
+[fn:1] jedna jednostka to $\frac13 \mathrm{cm}$
 ** Optymalizowana funkcja
 Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkości panelu
 \begin{equation}
