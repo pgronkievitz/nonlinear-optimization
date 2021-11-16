@@ -6,7 +6,7 @@ phi <- function(n) {
   if (length(phi_values) >= n) {
     return(phi_values[n])
   } else {
-    for (i in seq(2, n + 1)) {
+    for (i in seq(length(phi_values), n + 1)) {
       phi_values <<- c(phi_values, phi_values[i - 2] + phi_values[i - 1])
     }
     return(phi_values[n])
