@@ -42,3 +42,6 @@ fibonacci <- function(f, lower, upper, tol, max = FALSE, logging = FALSE) {
   }
   return((lower + upper) / 2)
 }
+
+fib_minima <- fibonacci(f, 2, 10, 1e-10, logging = TRUE)
+sprintf("%.10f", fib_minima)
