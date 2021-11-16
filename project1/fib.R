@@ -3,8 +3,8 @@ f <- function(x) (exp((x / 3)^3) * 1.36 * (x - 10) / 3) / 2.6^(x / 3)
 phi_values <- c(0, 1)
 
 phi <- function(n) {
-  if (n <= 1) {
-    return(n)
+  if (length(phi_values) >= n) {
+    return(phi_values[n])
   } else {
     for (i in seq(2, n + 1)) {
       phi_values <<- c(phi_values, phi_values[i - 2] + phi_values[i - 1])
@@ -38,7 +38,7 @@ fibonacci <- function(f, lower, upper, tol, max = FALSE, logging = FALSE) {
     }
     c <- upper - phi(k - 1) / phi(k) * (upper - lower)
     d <- lower + upper - c
-    if (logging) cat("[", i, "] c=", c, ";\t d=", d, sep = "")
+    if (logging) cat("[", i, "] c=", c, ";\t d=", d, "\n", sep = "")
   }
   return((lower + upper) / 2)
 }
