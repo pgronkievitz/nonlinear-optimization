@@ -26,4 +26,22 @@ Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkośc
 f(x)=\frac{e^{\left(\frac x3\right)^{3}\cdot1.36}\cdot \frac {x-10}3}{2.6^{\left(\frac x3\right)}}
 \end{equation}
 * Metoda Fibonacciego
+** Obliczanie kolejnych elementów ciągu Fibonacciego
+#+begin_src R :results silent
+phi_values <- c(0, 1)
+
+phi <- function(n) {
+  if (length(phi_values) >= n) {
+    return(phi_values[n])
+  } else {
+    for (i in seq(length(phi_values), n + 1)) {
+      phi_values <<- c(phi_values,
+                       phi_values[i - 2]
+                       + phi_values[i - 1])
+    }
+    return(phi_values[n])
+  }
+}
+#+end_src
+
 ** Implementacja
