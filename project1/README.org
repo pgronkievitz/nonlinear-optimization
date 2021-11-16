@@ -3,6 +3,7 @@
 #+AUTHOR: Patryk Gronkiewicz 164157
 #+LANGUAGE: pl
 #+OPTIONS: toc:nil H:2 num:t
+#+PROPERTY: header-args:R  :session *R*
 #+BEAMER_THEME: Hannover
 #+BEAMER_COLOR_THEME: orchid
 #+BEAMER_FONT_THEME: professionalfonts
