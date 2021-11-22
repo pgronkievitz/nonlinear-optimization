@@ -45,3 +45,7 @@ phi <- function(n) {
 #+end_src
 
 ** Implementacja
+Nie różni się znacząco od tej przedstawionej na zajęciach. Dodano natomiast kilka funkcjonalności, a mianowicie:
++ opcję, która pozwala szukać wartości maksymalnej (=max=)
++ Wypisywanie kolejnych iteracji po podaniu argumentu (=logging=)
++ Tworzenie wykresów (=plotting=) oraz ograniczanie ich (=ylim= - domyślnie 5% szerszy od przedziału poszukiwań)
