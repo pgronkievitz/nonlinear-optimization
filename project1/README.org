@@ -28,7 +28,7 @@ f(x)=\frac{e^{\left(\frac x3\right)^{3}\cdot1.36}\cdot \frac {x-10}3}{2.6^{\left
 * Metoda Fibonacciego
 ** Obliczanie kolejnych elementów ciągu Fibonacciego
 #+begin_src R :results silent
-phi_values <- c(0, 1)
+phi_values <- c(1, 1)
 
 phi <- function(n) {
   if (length(phi_values) >= n) {
