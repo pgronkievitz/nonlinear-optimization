@@ -25,9 +25,13 @@ Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkośc
 f(x)=\frac{1,4^{\left(\frac x3\right)^{3}\cdot2,4}\cdot \frac {x-10}3}{2,6^{\left(\frac x3\right)}}
 \end{equation}
 ** Funkcja zdefiniowana w R
+Naszą funkcję zapiszemy najpierw jako wyrażenie, aby później operacje w metodzie Newtona były prostsze.
+#+NAME: defined_function
 #+begin_src R :results silent
-f <- function(x)
-  (1.4^((x / 3)^3) * 2.4 * (x - 10) / 3) / 2.6^(x / 3)
+f_exp <- expression(
+    (1.4^((x/3)^3)*2.4*(x-10)/3)/2.6^(x/3)
+)
+f <- function(x) eval(f_exp)
 #+end_src
 * Metoda Fibonacciego
 ** Obliczanie kolejnych elementów ciągu Fibonacciego
