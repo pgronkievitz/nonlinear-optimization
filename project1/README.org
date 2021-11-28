@@ -116,12 +116,15 @@ fibonacci <- function(f, lower, upper, tol,
 }
 #+end_src
 ** Wyniki
+Po wywołaniu funkcji używającej metody Fibonacciego otrzymujemy wynik podany poniżej.
 #+NAME: fib_opt
-#+begin_src R :results silent
+#+begin_src R :exports both
 fibonacci(f, 2, 10, 1e-10)
 #+end_src
 
-Po zastosowaniu metody Fibonacciego otrzymany wynik to call_fib_opt().
+#+RESULTS: fib_opt
+: 9.68645230555025
+
 ** Wykresy - iteracja 1
 #+NAME: plotting_fib
 #+begin_src R :exports none :results silent iterations=0
@@ -180,3 +183,13 @@ a <- dev.off()
 <<fib_optimizer>>
 <<fib_opt>>
 #+end_src
+** Wyniki
+Po wywołaniu funkcji używającej metody Newtona otrzymujemy wynik podany poniżej.
+#+NAME: newton_opt
+#+begin_src R :exports both
+newton(f_exp, 10, 1e-10)
+#+end_src
+
+#+RESULTS: newton_opt
+: 9.68645230138073
+
