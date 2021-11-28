@@ -1,5 +1,5 @@
 #+TITLE: Metody przeszukiwania bezpośredniego dla funkcji jednowymiarowych
-#+SUBTITLE: Optymalizacja nieliniowa - projekt
+#+SUBTITLE: Optymalizacja nieliniowa - projekt 1
 #+AUTHOR: Patryk Gronkiewicz 164157
 #+LANGUAGE: pl
 #+OPTIONS: toc:nil H:2 num:t
