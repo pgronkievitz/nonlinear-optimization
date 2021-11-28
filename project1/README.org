@@ -34,6 +34,16 @@ f_exp <- expression(
 f <- function(x) eval(f_exp)
 #+end_src
 * Metoda Fibonacciego
+** Zasada działania
+Podobnie do pozostałych bezgradientowych metod przeszukiwania bezpośredniego polega ona na zawężaniu przedziału. W naszym wypadku te zawężenia stają się coraz większe razem z numerem iteracji.
+
+Każdy kolejny ,,poziom'' zawężenia definiuje się jak na równaniu \ref{eq:2}.
+\begin{equation}
+\label{eq:2}
+\delta = \frac{\varphi_{i-1}}{\varphi_{i}}
+\end{equation}
+
+Jest to dużo lepsza sytuacja od metody złotego podziału, ponieważ zaczynamy ze zbliżonego poziomu zawężania, a z czasem jest coraz większy.
 ** Obliczanie kolejnych elementów ciągu Fibonacciego
 #+NAME: phi_calculation
 #+begin_src R :results silent
