@@ -8,6 +8,7 @@
 #+BEAMER_COLOR_THEME: orchid
 #+BEAMER_FONT_THEME: professionalfonts
 #+STARTUP: beamer
+#+EXCLUDE_TAGS: noexport
 
 * Zadanie
 ** Treść
