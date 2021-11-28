@@ -194,3 +194,32 @@ newton(f_exp, 10, 1e-10)
 #+RESULTS: newton_opt
 : 9.68645230138073
 
+** Wykresy - wstępna informacja
+#+NAME: plotting_newton
+#+begin_src R :exports none :results silent iterations=0
+pdf(paste("plot_newton", iterations, ".pdf", sep = ""))
+parabole <- newton(f_exp, 10, 1e-10, it_lim = iterations)
+plot(f, 2, 10, ylim=c(-1000,-10))
+plot(parabole, 2, 10, add = TRUE, col="red")
+a <- dev.off()
+#+end_src
+
+Parabole prezentowane na wykresach są generowane na podstawie wzoru \ref{eq:5} po uwzględnieniu faktu, że naszym argumentem jest $x+h$, a więc ,,podwójna'' zmienna (finalny wzór jest prezentowany we wzorze \ref{eq:6}), gdzie $xh$ jest naszym argumentem $x+h$.
+\begin{equation}
+\label{eq:6}
+p(xh)=f(x)+f'(x)(xh-x)+0.5f''(x)(xh-x)^2
+\end{equation}
+** Wykresy - iteracja 1
+
+#+CALL: plotting_newton[:exports none :results silent](iterations=1)
+
+[[./plot_newton1.pdf]]
+** Wykresy - iteracja 2
+#+CALL: plotting_newton[:exports none :results silent](iterations=2)
+
+[[./plot_newton2.pdf]]
+
+** Wykresy - iteracja 3
+#+CALL: plotting_newton[:exports none :results silent](iterations=3)
+
+[[./plot_newton3.pdf]]
