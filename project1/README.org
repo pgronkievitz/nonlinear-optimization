@@ -22,7 +22,7 @@ W zakładach firmy ACME Inc. produkowane są kolumny głośnikowe. Inżynierowie
 Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkości panelu
 \begin{equation}
 \label{eq:1}
-f(x)=\frac{1.4^{\left(\frac x3\right)^{3}\cdot2.4}\cdot \frac {x-10}3}{2.6^{\left(\frac x3\right)}}
+f(x)=\frac{1,4^{\left(\frac x3\right)^{3}\cdot2,4}\cdot \frac {x-10}3}{2,6^{\left(\frac x3\right)}}
 \end{equation}
 ** Funkcja zdefiniowana w R
 #+begin_src R :results silent
