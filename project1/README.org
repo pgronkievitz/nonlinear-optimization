@@ -19,7 +19,7 @@ W zakładach firmy ACME Inc. produkowane są kolumny głośnikowe. Inżynierowie
 4. Niechęć do większej obudowy rośnie jak $f(x)=2.6^{x}$, gdzie $x$ to wymiar frontu obudowy.
 [fn:jednostka] jedna jednostka to $\frac13 \mathrm{cm}$
 ** Optymalizowana funkcja
-Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkości panelu
+Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkości panelu.
 \begin{equation}
 \label{eq:1}
 f(x)=\frac{1,4^{\left(\frac x3\right)^{3}\cdot2,4}\cdot \frac {x-10}3}{2,6^{\left(\frac x3\right)}}
@@ -65,9 +65,10 @@ phi <- function(n) {
 
 ** Implementacja
 Nie różni się znacząco od tej przedstawionej na zajęciach. Dodano natomiast kilka funkcjonalności, a mianowicie:
-+ opcję, która pozwala szukać wartości maksymalnej (=max=)
-+ Wypisywanie kolejnych iteracji po podaniu argumentu (=logging=)
-+ Tworzenie wykresów (=plotting=) oraz ograniczanie ich (=ylim= - domyślnie 5% szerszy od przedziału poszukiwań)
++ Opcję, która pozwala szukać wartości maksymalnej (=max=);
++ Wypisywanie kolejnych iteracji po podaniu argumentu (=logging=);
++ Tworzenie wykresów (=plotting=) oraz ograniczanie ich (=ylim= - domyślnie 5% szerszy od przedziału poszukiwań);
++ Ograniczenie liczby iteracji dla ułatwienia tworzenia prezentacji (=it_lim=).
 ** Obliczanie liczby iteracji
 #+NAME: k_calculation
 #+begin_src R :results silent
