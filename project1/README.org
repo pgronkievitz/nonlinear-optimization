@@ -53,3 +53,14 @@ Nie różni się znacząco od tej przedstawionej na zajęciach. Dodano natomiast
 f <- function(x)
   (1.4^((x / 3)^3) * 2.4 * (x - 10) / 3) / 2.6^(x / 3)
 #+end_src
+** Obliczanie liczby iteracji
+#+begin_src R :results silent
+fib_k <- function(lower, upper, tol) {
+  i <- 2
+  threshold <- (upper - lower)/tol
+  while (phi(i) < threshold) {
+    i <- i + 1
+  }
+  return(i + 1)
+}
+#+end_src
