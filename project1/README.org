@@ -212,6 +212,32 @@ Wynika to z możliwości aproksymacji funkcji za pomocą wielomianu Taylora stop
 \label{eq:5}
 f\left(x^{\left(i\right)}+h\right)\approx f\left(x^{\left(i\right)}\right)+f'\left(x^{\left(i\right)}\right)h+\frac12f''\left(x^{\left(i\right)}\right)h^{2}
 \end{equation}
+** Implementacja
+\fontsize{7pt}{6.7}\selectfont
+   #+NAME: newton_optimizer
+   #+begin_src R :results silent
+newton <- function(f_expr, x, tol, logging = FALSE, plotting = FALSE,
+                   xlim = c(0, 10), ylim = c(-10, 10), it_lim = -1) {
+  f <- function(x) eval(f_expr)
+  df <- function(x) eval(D(f_expr, 'x'))
+  d2f <- function(x) eval(D(D(f_expr, 'x'), 'x'))
+  i <- 1
+  repeat {
+    h <- function(x) -df(x)/d2f(x)
+    new.x <- x + h(x)
+    if (logging) cat("[", i, "] x=", x, "\n", sep = "")
+    if (plotting) {
+      plot(f, xlim[[1]], xlim[[2]], ylim = ylim, col = "red")
+      plot(parabole, xlim[[1]], xlim[[2]], ylim = ylim, col = "blue", add = TRUE)
+    }
+    i <- i + 1
+    if (it_lim > 0 && i > it_lim)
+      return(function(xh) f(x)+df(x)*(xh-x)+0.5*d2f(x)*(xh-x)^2)
+    if (abs(new.x - x) < tol) return(new.x)
+    x <- new.x
+  }
+}
+   #+end_src
 ** Wyniki
 Po wywołaniu funkcji używającej metody Newtona otrzymujemy wynik podany poniżej.
 #+NAME: newton_opt
