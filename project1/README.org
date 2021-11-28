@@ -277,3 +277,5 @@ p(xh)=f(x)+f'(x)(xh-x)+0.5f''(x)(xh-x)^2
 #+CALL: plotting_newton[:exports none :results silent](iterations=3)
 
 [[./plot_newton3.pdf]]
+** Wnioski
+Metoda Newtona jest bardzo efektywną, jednak z niemałym mankamentem - musimy być w stanie obliczyć zarówno pierwszą, jak i drugą pochodną funkcji. Jest to istotny obliczeniowo problem, ze względu na fakt, że nie wszystkie funkcje są możliwe do obliczenia analitycznego - w wypadku obliczeń numerycznych znacznie wydłuża się czas działania programu, a co za tym idzie - koszty jego użycia.
