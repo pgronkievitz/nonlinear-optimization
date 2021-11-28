@@ -68,7 +68,8 @@ fib_k <- function(lower, upper, tol) {
 \fontsize{6pt}{6.7}\selectfont
 #+begin_src R :results silent
 fibonacci <- function(f, lower, upper, tol,
-                      max = FALSE, logging = FALSE, plotting = FALSE, ylim = c(-10, 10), it_lim = -1) {
+                      max = FALSE, logging = FALSE, plotting = FALSE,
+                      ylim = c(-10, 10), it_lim = -1) {
   if (max) f <- function(x) -f(x)
   k <- fib_k(lower, upper, tol)
   range_len <- abs(upper - lower)
