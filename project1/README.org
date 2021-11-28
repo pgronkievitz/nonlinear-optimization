@@ -87,7 +87,7 @@ fibonacci <- function(f, lower, upper, tol,
     c <- upper - phi(k - 1) / phi(k) * (upper - lower)
     d <- lower + upper - c
     if (logging) cat("[", i, "] c=", c, ";\td=", d, "\n", sep = "")
-    if (plotting && i < 3) {
+    if (plotting) {
       plot(f, plot_bot, plot_top, ylim = ylim, col = "red")
       points(c, f(c), col = "green")
       points(d, f(d), col = "blue")
