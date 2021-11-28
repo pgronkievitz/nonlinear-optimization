@@ -35,6 +35,7 @@ f <- function(x) eval(f_exp)
 #+end_src
 * Metoda Fibonacciego
 ** Obliczanie kolejnych elementów ciągu Fibonacciego
+#+NAME: phi_calculation
 #+begin_src R :results silent
 phi_values <- c(1, 1)
 
@@ -58,6 +59,7 @@ Nie różni się znacząco od tej przedstawionej na zajęciach. Dodano natomiast
 + Wypisywanie kolejnych iteracji po podaniu argumentu (=logging=)
 + Tworzenie wykresów (=plotting=) oraz ograniczanie ich (=ylim= - domyślnie 5% szerszy od przedziału poszukiwań)
 ** Obliczanie liczby iteracji
+#+NAME: k_calculation
 #+begin_src R :results silent
 fib_k <- function(lower, upper, tol) {
   i <- 2
@@ -70,6 +72,7 @@ fib_k <- function(lower, upper, tol) {
 #+end_src
 ** Funkcja optymalizująca
 \fontsize{6pt}{6.7}\selectfont
+#+NAME: fib_optimizer
 #+begin_src R :results silent
 fibonacci <- function(f, lower, upper, tol,
                       max = FALSE, logging = FALSE, plotting = FALSE,
@@ -103,60 +106,59 @@ fibonacci <- function(f, lower, upper, tol,
 }
 #+end_src
 ** Wyniki
-#+NAME: wynik_optymalny
+#+NAME: fib_opt
 #+begin_src R :results silent
 fibonacci(f, 2, 10, 1e-10)
 #+end_src
 
-Po zastosowaniu metody Fibonacciego otrzymany wynik to call_wynik_optymalny().
+Po zastosowaniu metody Fibonacciego otrzymany wynik to call_fib_opt().
 ** Wykresy - iteracja 1
-#+NAME: plotting
+#+NAME: plotting_fib
 #+begin_src R :exports none :results silent iterations=0
-pdf(paste("plot", iterations, ".pdf", sep = ""))
+pdf(paste("plot_fib", iterations, ".pdf", sep = ""))
 data <- fibonacci(f, 2, 21, 1e-10, it_lim = iterations)
 plot(f, data[[1]], data[[2]], ylim=c(-1000,-10))
 points(c(data[[3]],data[[4]],data[[5]],data[[6]]), c(f(data[[3]]),f(data[[4]]),f(data[[5]]),f(data[[6]])))
 a <- dev.off()
 #+end_src
 
-#+CALL: plotting[:exports none :results silent](iterations=1)
-[[./plot1.pdf]]
+#+CALL: plotting_fib[:exports none :results silent](iterations=1)
+[[./plot_fib1.pdf]]
 
 ** Wykresy - iteracja 2
-#+CALL: plotting[:exports none :results silent](iterations=2)
+#+CALL: plotting_fib[:exports none :results silent](iterations=2)
 
-[[./plot2.pdf]]
-
+[[./plot_fib2.pdf]]
+    
 ** Wykresy - iteracja 3
-#+CALL: plotting[:exports none :results silent](iterations=3)
+#+CALL: plotting_fib[:exports none :results silent](iterations=3)
 
-[[./plot3.pdf]]
+[[./plot_fib3.pdf]]
 ** Wykresy - iteracja 4
-#+CALL: plotting[:exports none :results silent](iterations=4)
+#+CALL: plotting_fib[:exports none :results silent](iterations=4)
 
-[[./plot4.pdf]]
+[[./plot_fib4.pdf]]
 
 ** Wykresy - iteracja 5
-#+CALL: plotting[:exports none :results silent](iterations=5)
+#+CALL: plotting_fib[:exports none :results silent](iterations=5)
 
-[[./plot5.pdf]]
+[[./plot_fib5.pdf]]
 ** Wykresy - iteracja 6
-#+CALL: plotting[:exports none :results silent](iterations=6)
+#+CALL: plotting_fib[:exports none :results silent](iterations=6)
 
-[[./plot6.pdf]]
+[[./plot_fib6.pdf]]
 ** Wykresy - iteracja 7
-#+CALL: plotting[:exports none :results silent](iterations=7)
+#+CALL: plotting_fib[:exports none :results silent](iterations=7)
 
-[[./plot7.pdf]]
+[[./plot_fib7.pdf]]
 ** Wykresy - iteracja 8
-#+CALL: plotting[:exports none :results silent](iterations=8)
+#+CALL: plotting_fib[:exports none :results silent](iterations=8)
 
-[[./plot8.pdf]]
+[[./plot_fib8.pdf]]
 ** Wykresy - iteracja 9
-#+CALL: plotting[:exports none :results silent](iterations=9)
+#+CALL: plotting_fib[:exports none :results silent](iterations=9)
 
-[[./plot9.pdf]]
+[[./plot_fib9.pdf]]
 ** Wykresy - iteracja 10
-#+CALL: plotting[:exports none :results silent](iterations=10)
-
-[[./plot10.pdf]]
+#+CALL: plotting_fib[:exports none :results silent](iterations=10)
+[[./plot_fib10.pdf]]
