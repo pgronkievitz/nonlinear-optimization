@@ -143,7 +143,7 @@ a <- dev.off()
 #+CALL: plotting_fib[:exports none :results silent](iterations=2)
 
 [[./plot_fib2.pdf]]
-    
+
 ** Wykresy - iteracja 3
 #+CALL: plotting_fib[:exports none :results silent](iterations=3)
 
@@ -175,6 +175,7 @@ a <- dev.off()
 [[./plot_fib9.pdf]]
 ** Wykresy - iteracja 10
 #+CALL: plotting_fib[:exports none :results silent](iterations=10)
+
 [[./plot_fib10.pdf]]
 ** Wnioski
 Metoda złotego podziału jest bardzo efektywną metodą bezgradientową - pozwala na stosunkowo szybkie zawężenie przedziału poszukiwań. Jest znacznie szybsza od metody przeszukiwania potrójnego, a więc najprostszej (implementacyjnie) metody, a także od metody złotego podziału, która jest ,,średnia'' w kwestii szybkości działania.
@@ -186,6 +187,7 @@ Metoda złotego podziału jest bardzo efektywną metodą bezgradientową - pozwa
 <<fib_optimizer>>
 <<fib_opt>>
 #+end_src
+
 * Metoda Newtona
 ** Założenia
 Metoda Newtona wymaga, aby dostarczyć jej zarówno pierwszej, jak i drugiej pochodnej. W związku z tym przyjmiemy, że nasza funkcja jako argumenty dostaje:
