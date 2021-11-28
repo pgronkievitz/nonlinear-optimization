@@ -184,6 +184,34 @@ Metoda złotego podziału jest bardzo efektywną metodą bezgradientową - pozwa
 <<fib_optimizer>>
 <<fib_opt>>
 #+end_src
+* Metoda Newtona
+** Założenia
+Metoda Newtona wymaga, aby dostarczyć jej zarówno pierwszej, jak i drugiej pochodnej. W związku z tym przyjmiemy, że nasza funkcja jako argumenty dostaje:
+1. *Wyrażenie* definiujące funkcję zdefiniowaną na podstawie $x$
+2. Punkt startowy
+3. Tolerancję
+
+Dodatkowo zostały zdefiniowane argumenty takie jak:
+1. Informacje nt. aktualnej iteracji (=logging=)
+2. Tworzenie wykresów do iteracji (=plotting=)
+   1. ograniczenie $x$ na wykresie (=xlim=)
+   2. ograniczenie $y$ na wykresie (=ylim=)
+3. Ograniczenie liczby iteracji na potrzeby wykresów ,,pokazowych'' (=it_lim=)
+** Zasada działania
+Każde kolejne przybliżenie funkcji jest definiowane jako przejście w stronę malejącego gradientu z pomocą pierwszej i drugiej pochodnej. Polega to na zdefiniowaniu kroku $h$ ja we wzorze \ref{eq:3}, natomiast nowy $x^{{(i)}}$ jako poprzedni po przesunięciu o $h$ (równanie \ref{eq:4}).
+\begin{equation}
+\label{eq:3}
+h=-\frac{f'(x)}{f''(x)}
+\end{equation}
+\begin{equation}
+\label{eq:4}
+x^{{(i)}}=x^{{(i-1)}}+h
+\end{equation}
+Wynika to z możliwości aproksymacji funkcji za pomocą wielomianu Taylora stopnia 2 w taki sposób jak w równaniu \ref{eq:5}.
+\begin{equation}
+\label{eq:5}
+f\left(x^{\left(i\right)}+h\right)\approx f\left(x^{\left(i\right)}\right)+f'\left(x^{\left(i\right)}\right)h+\frac12f''\left(x^{\left(i\right)}\right)h^{2}
+\end{equation}
 ** Wyniki
 Po wywołaniu funkcji używającej metody Newtona otrzymujemy wynik podany poniżej.
 #+NAME: newton_opt
