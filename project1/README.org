@@ -162,3 +162,11 @@ a <- dev.off()
 ** Wykresy - iteracja 10
 #+CALL: plotting_fib[:exports none :results silent](iterations=10)
 [[./plot_fib10.pdf]]
+** Tangling :noexport:
+#+begin_src R :tangle fibonacci.R :noweb yes
+<<defined_function>>
+<<phi_calculation>>
+<<k_calculation>>
+<<fib_optimizer>>
+<<fib_opt>>
+#+end_src
