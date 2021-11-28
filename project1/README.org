@@ -97,3 +97,19 @@ fibonacci <- function(f, lower, upper, tol,
   return((lower + upper) / 2)
 }
 #+end_src
+** Wyniki
+#+NAME: wynik_optymalny
+#+begin_src R :results silent
+fibonacci(f, 2, 10, 1e-10)
+#+end_src
+
+Po zastosowaniu metody Fibonacciego otrzymany wynik to call_wynik_optymalny().
+** Wykresy - iteracja 1
+#+NAME: plotting
+#+begin_src R :exports none :results silent iterations=0
+pdf(paste("plot", iterations, ".pdf", sep = ""))
+data <- fibonacci(f, 2, 21, 1e-10, it_lim = iterations)
+plot(f, data[[1]], data[[2]], ylim=c(-1000,-10))
+points(c(data[[3]],data[[4]],data[[5]],data[[6]]), c(f(data[[3]]),f(data[[4]]),f(data[[5]]),f(data[[6]])))
+a <- dev.off()
+#+end_src
