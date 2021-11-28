@@ -8,22 +8,21 @@
 #+BEAMER_COLOR_THEME: orchid
 #+BEAMER_FONT_THEME: professionalfonts
 #+STARTUP: beamer
-#+LATEX_HEADER_EXTRA: \usepackage{siunitx}
 
 * Zadanie
 ** Treść
 W zakładach firmy ACME Inc. produkowane są kolumny głośnikowe. Inżynierowie zatrudnieni w tej firmie starają się stworzyć jak najlepszy głośnik o jak najmniejszych wymiarach. Podczas budowania głośników panuje kilka zasad. Na nasze potrzeby zakładamy, że głośnik taki musi mieć zamkniętą budowę.
 ** Założenia
 1. Im większa membrana głośnika, tym ,,więcej'' basu jest w stanie wydać z siebie. Zysk uznajemy za taki, który zachowuje się jak $f(d)=\frac1d$.
-2. Im większa objętość obudowy, tym szybciej może reagować membrana (jest bardziej dynamiczna). Zysk jakości uznajemy za zachowujący się jak $f(V)=\frac1{e^{V}}$.
-3. Dla łatwości obliczeń przyjmujemy, że membrana jest o $10$ jednostek[fn:jednostka] mniejsza od /kwadratowego/ przedniego panelu obudowy (tj. $5\mathrm{cm}$ ,,zapasu''). Na dodatek grubość obudowy jest 1.36-krotnie większa od wymiaru przedniego panelu.
+2. Im większa objętość obudowy, tym szybciej może reagować membrana (jest bardziej dynamiczna). Zysk jakości uznajemy za zachowujący się jak $f(V)=\frac1{1.4^{V}}$.
+3. Dla łatwości obliczeń przyjmujemy, że membrana jest o $10$ jednostek[fn:jednostka] mniejsza od /kwadratowego/ przedniego panelu obudowy (tj. $5\mathrm{cm}$ ,,zapasu''). Na dodatek grubość obudowy jest 2.4-krotnie większa od wymiaru przedniego panelu.
 4. Niechęć do większej obudowy rośnie jak $f(x)=2.6^{x}$, gdzie $x$ to wymiar frontu obudowy.
 [fn:jednostka] jedna jednostka to $\frac13 \mathrm{cm}$
 ** Optymalizowana funkcja
 Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkości panelu
 \begin{equation}
 \label{eq:1}
-f(x)=\frac{e^{\left(\frac x3\right)^{3}\cdot1.36}\cdot \frac {x-10}3}{2.6^{\left(\frac x3\right)}}
+f(x)=\frac{1.4^{\left(\frac x3\right)^{3}\cdot2.4}\cdot \frac {x-10}3}{2.6^{\left(\frac x3\right)}}
 \end{equation}
 * Metoda Fibonacciego
 ** Obliczanie kolejnych elementów ciągu Fibonacciego
