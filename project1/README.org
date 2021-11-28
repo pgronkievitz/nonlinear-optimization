@@ -110,8 +110,7 @@ fibonacci <- function(f, lower, upper, tol,
       points(c, f(c), col = "green")
       points(d, f(d), col = "blue")
     }
-    if (it_lim > 0 && i > it_lim) return(c(plot_bot, plot_top, lower, c, d, upper))
-  }
+    if (it_lim > 0 && i > it_lim) return(c(plot_bot, plot_top, lower, c, d, upper))}
   return((lower + upper) / 2)
 }
 #+end_src
