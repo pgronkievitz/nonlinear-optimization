@@ -24,6 +24,11 @@ Dla centymetrów zadanie jest zdefiniowane jak na \ref{eq:1} względem wielkośc
 \label{eq:1}
 f(x)=\frac{1.4^{\left(\frac x3\right)^{3}\cdot2.4}\cdot \frac {x-10}3}{2.6^{\left(\frac x3\right)}}
 \end{equation}
+** Funkcja zdefiniowana w R
+#+begin_src R :results silent
+f <- function(x)
+  (1.4^((x / 3)^3) * 2.4 * (x - 10) / 3) / 2.6^(x / 3)
+#+end_src
 * Metoda Fibonacciego
 ** Obliczanie kolejnych elementów ciągu Fibonacciego
 #+begin_src R :results silent
@@ -48,11 +53,6 @@ Nie różni się znacząco od tej przedstawionej na zajęciach. Dodano natomiast
 + opcję, która pozwala szukać wartości maksymalnej (=max=)
 + Wypisywanie kolejnych iteracji po podaniu argumentu (=logging=)
 + Tworzenie wykresów (=plotting=) oraz ograniczanie ich (=ylim= - domyślnie 5% szerszy od przedziału poszukiwań)
-** Funkcja
-#+begin_src R :results silent
-f <- function(x)
-  (1.4^((x / 3)^3) * 2.4 * (x - 10) / 3) / 2.6^(x / 3)
-#+end_src
 ** Obliczanie liczby iteracji
 #+begin_src R :results silent
 fib_k <- function(lower, upper, tol) {
