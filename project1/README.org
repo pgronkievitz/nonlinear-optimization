@@ -113,3 +113,45 @@ plot(f, data[[1]], data[[2]], ylim=c(-1000,-10))
 points(c(data[[3]],data[[4]],data[[5]],data[[6]]), c(f(data[[3]]),f(data[[4]]),f(data[[5]]),f(data[[6]])))
 a <- dev.off()
 #+end_src
+
+#+CALL: plotting[:exports none :results silent](iterations=1)
+[[./plot1.pdf]]
+
+** Wykresy - iteracja 2
+#+CALL: plotting[:exports none :results silent](iterations=2)
+
+[[./plot2.pdf]]
+
+** Wykresy - iteracja 3
+#+CALL: plotting[:exports none :results silent](iterations=3)
+
+[[./plot3.pdf]]
+** Wykresy - iteracja 4
+#+CALL: plotting[:exports none :results silent](iterations=4)
+
+[[./plot4.pdf]]
+
+** Wykresy - iteracja 5
+#+CALL: plotting[:exports none :results silent](iterations=5)
+
+[[./plot5.pdf]]
+** Wykresy - iteracja 6
+#+CALL: plotting[:exports none :results silent](iterations=6)
+
+[[./plot6.pdf]]
+** Wykresy - iteracja 7
+#+CALL: plotting[:exports none :results silent](iterations=7)
+
+[[./plot7.pdf]]
+** Wykresy - iteracja 8
+#+CALL: plotting[:exports none :results silent](iterations=8)
+
+[[./plot8.pdf]]
+** Wykresy - iteracja 9
+#+CALL: plotting[:exports none :results silent](iterations=9)
+
+[[./plot9.pdf]]
+** Wykresy - iteracja 10
+#+CALL: plotting[:exports none :results silent](iterations=10)
+
+[[./plot10.pdf]]
