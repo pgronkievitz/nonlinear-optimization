@@ -1,0 +1,50 @@
+#+TITLE: Metoda quasi-Newtona DFP
+#+SUBTITLE: Optymalizacja nieliniowa - projekt 2
+#+AUTHOR: Patryk Gronkiewicz 164157
+#+LANGUAGE: pl
+#+OPTIONS: toc:nil H:2 num:t
+#+PROPERTY: header-args:R  :session *R* :eval never-export
+#+BEAMER_THEME: Hannover
+#+BEAMER_COLOR_THEME: orchid
+#+BEAMER_FONT_THEME: professionalfonts
+#+STARTUP: beamer
+#+EXCLUDE_TAGS: noexport
+
+* Zadanie
+** Treść
+Znaleźć minimum zmodyfikowanej funkcji Beale'a. Funkcja ta została zmodyfikowana w ten sposób, aby jej minimum było przedstawione następująco $f(\pi,e)=\sqrt{2}$. W ten sposób możemy sprawdzić dodatkowo jak nasza funkcja radzi sobie z liczbami niewymiernymi (które są przedstawione dla komputera w postaci liczby maszynowej).
+** Definicja funkcji
+Naszą funkcję można potraktować jako Funkcję Beale'a przesuniętą o wektor
+\begin{equation}
+\label{eq:1}
+\vec{x}=
+\begin{bmatrix}
+\pi-3 & e-0.5 & \sqrt{2}
+\end{bmatrix}^T
+\end{equation}
+Pierwszą i drugą zmienną zdefiniujemy jako $P$ oraz $E$
+Pierwotna miejsce zerowe w punkcie $f(3,0.5)=0$ oraz postać
+\begin{equation}
+\label{eq:2}
+f(x,y)=(1.5-x+xy)^{2}+(2.25-x+xy^{2})^{2}+(2.625-x+xy^{3})^{2}.
+\end{equation}
+
+Z powyższych równań wynika następująca definicja tej funkcji
+\begin{aligned}
+\label{eq:3}
+f(x,y)&=\left[1.5-(x-P)+(x-P)(y-E)\right]^{2}\\
+      &+\left[2.25-(x-P)+(x-P)(y-E)^{2}\right]^{2}\\
+      &+\left[2.625-(x-P)+(x-P)(y-E)^{3}\right]^{2}+\sqrt2
+\end{aligned}
+** Definicja domeny przeszukiwania
+Należy także przekształcić domenę przeszukiwania, która domyślnie jest zdefiniowana jako
+\begin{equation}
+\label{eq:4}
+x,y\in[-4.5;4.5]
+\end{equation}
+,,Rogi'' kwadratu wyznaczone domeną przeszukiwania poddajemy analogicznej transformacji, jak samą funkcję, jednak dla każdego z wymiarów osobno.
+\begin{align}
+\label{eq:5}
+x&\in[-4.5-\pi+3;4.5-\pi+3]\\
+y&\in[-4.5-e+0.5;4.5-e+0.5]
+\end{align}
