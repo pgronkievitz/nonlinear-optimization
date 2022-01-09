@@ -7,44 +7,209 @@
 #+BEAMER_THEME: Hannover
 #+BEAMER_COLOR_THEME: orchid
 #+BEAMER_FONT_THEME: professionalfonts
-#+STARTUP: beamer
+#+STARTUP: beamer latexpreview
 #+EXCLUDE_TAGS: noexport
 
 * Zadanie
 ** Treść
-Znaleźć minimum zmodyfikowanej funkcji Beale'a. Funkcja ta została zmodyfikowana w ten sposób, aby jej minimum było przedstawione następująco $f(\pi,e)=\sqrt{2}$. W ten sposób możemy sprawdzić dodatkowo jak nasza funkcja radzi sobie z liczbami niewymiernymi (które są przedstawione dla komputera w postaci liczby maszynowej).
+Znaleźć minimum ,,czary'' określoną pewnym wzorem. Została ona dobrana w taki sposób, aby $\min f = f(0;0)=0$.
 ** Definicja funkcji
-Naszą funkcję można potraktować jako Funkcję Beale'a przesuniętą o wektor
+Naszą funkcję zdefiniowano następująco
 \begin{equation}
 \label{eq:1}
-\vec{x}=
-\begin{bmatrix}
-\pi-3 & e-0.5 & \sqrt{2}
-\end{bmatrix}^T
+f(\vec x)= (x_{1}^{2}+1)(x_{2}^{4}+1)-1-x_{1}-x_{2}+0.5x_{2}^{2}
 \end{equation}
-Pierwszą i drugą zmienną zdefiniujemy jako $P$ oraz $E$
-Pierwotna miejsce zerowe w punkcie $f(3,0.5)=0$ oraz postać
+** Definicja funkcji w R
+#+name: fun
+#+begin_src R :results silent
+f <- function(x) (x[1]^2+1)*(x[2]^4+1)-5-x[1]-x[2]+0.5*x[2]^2
+#+end_src
+
+* Metdoa DFP
+** Zasada działania
+Metody quasi-Newtonowskie są bardzo zbliżone do ,,pełnej'' metody Newtona. Jedyną różnicą w stosunku do niej jest stosowanie przybliżenia hesjanu. Kolejne przybliżenia *odwrotności* hesjanu dane są wzorem
+
 \begin{equation}
-\label{eq:2}
-f(x,y)=(1.5-x+xy)^{2}+(2.25-x+xy^{2})^{2}+(2.625-x+xy^{3})^{2}.
+\label{eq:6}
+B_{k+1}=\left(I-\frac{y_{k}\Delta x_{k}^{T}}{y_{k}^{{T}}\Delta x_{k}}\right)B_{k}\left(I-\frac{\Delta x_{k}y_{k}^{T}}{y_{k}^{{T}}\Delta x_{k}}\right)+\frac{y_{k}y_{k}^{T}}{y_{k}^{{T}}\Delta x_{k}}.
 \end{equation}
 
-Z powyższych równań wynika następująca definicja tej funkcji
-\begin{aligned}
-\label{eq:3}
-f(x,y)&=\left[1.5-(x-P)+(x-P)(y-E)\right]^{2}\\
-      &+\left[2.25-(x-P)+(x-P)(y-E)^{2}\right]^{2}\\
-      &+\left[2.625-(x-P)+(x-P)(y-E)^{3}\right]^{2}+\sqrt2
-\end{aligned}
-** Definicja domeny przeszukiwania
-Należy także przekształcić domenę przeszukiwania, która domyślnie jest zdefiniowana jako
-\begin{equation}
-\label{eq:4}
-x,y\in[-4.5;4.5]
-\end{equation}
-,,Rogi'' kwadratu wyznaczone domeną przeszukiwania poddajemy analogicznej transformacji, jak samą funkcję, jednak dla każdego z wymiarów osobno.
-\begin{align}
-\label{eq:5}
-x&\in[-4.5-\pi+3;4.5-\pi+3]\\
-y&\in[-4.5-e+0.5;4.5-e+0.5]
-\end{align}
+** Niezbędne biblioteki
+Potrzebna nam będzie biblioteka ~numDeriv~. Żadna inna nie jest wymagana w celu obliczeń, które wykonujemy.
+#+name: deps
+#+begin_src R :results silent
+library("numDeriv")
+#+end_src
+** Obliczanie $B_{k+1}$
+Dla uproszczenia osobno wyznaczamy macierz jednostkową oraz iloczyn macierzowy $y_{k}^{T}\Delta x_{k}$. Ponadto liczniki ułamków zostały wyciągnięte do zmiennych $a$, $b$ i $c$
+#+name: newb
+#+begin_src R :results silent
+new_B <- function(B, dx, y) {
+  I <- diag(dim(B)[[1]])
+  yx <- (t(y)%*%dx)[[1]]
+  a_ <- y%*%t(dx)
+  b_ <- dx%*%t(y)
+  c_ <- y%*%t(y)
+  return(
+   (I-a_/yx) %*% B %*% (I-b_/yx) + c_/yx
+  )
+}
+#+end_src
+** Funkcja optymalizująca krok
+W tym celu została wykorzystana metoda Fibonacciego z poprzedniego projektu. Nie będę jej implementacji specjalnie przytaczać.
+#+name: golden
+#+begin_src R :exports none :results silent
+golden <- function(f, lower, upper, tol) {
+    ratio <- 2 / (3 + sqrt(5))
+    x1 <- (1 - ratio) * lower + ratio * upper
+    f.x1 <- f(x1)
+    while (abs(upper - lower) > 2 * tol) {
+        x2 <- (1 - ratio) * x1 + ratio * upper
+        f.x2 <- f(x2)
+        if (f.x1 < f.x2) {
+            upper <- lower
+            lower <- x2
+        } else {
+            lower <- x1
+            x1 <- x2
+            f.x1 <- f.x2
+        }
+    }
+    return((upper + lower) / 2)
+}
+
+#+end_src
+
+** Implementacja algorytmu DFP
+\fontsize{7pt}{6.7}\selectfont
+#+name: dfp
+#+begin_src R :results silent
+dfp <- function(f, x, eps,
+                logging = F, plotting = F, xlim=c(-1,1), ylim=c(-1,1), res = 60) {
+  x <- matrix(x)
+  B <- diag(dim(x)[1])
+  dx <- matrix(c(Inf,Inf))
+  i<- 0
+  if (plotting) {
+    fu <- function(x, y) f(c(x, y))
+    xs <- seq(xlim[1], xlim[2], length.out = res)
+    ys <- seq(ylim[1], ylim[2], length.out = res)
+    zs <- outer(xs, ys, fu)
+  }
+  repeat {
+    i <- i+1
+    H <- solve(B)
+    gradfx <- grad(f, x)
+    stepf <- function(step) f(x-step*gradfx)
+    step <- golden(stepf, 0, 1/sqrt(sum(gradfx^2)), 1e-4)
+    dx <- -H%*%gradfx*step
+    B <- new_B(B, dx, grad(f,x+dx)-gradfx)
+    x <- x + dx
+    if (logging) {
+      cat("[", i, "]", " x=[", x, "]", " Dx=[", dx, "]", " B=", B, "\n")
+    }
+    if (plotting) {
+      filled.contour(xs, ys, zs, nlevels = 20)
+      points(x)
+    }
+    if (sqrt(sum(dx^2)) < eps) return(x)
+  }
+}
+
+#+end_src
+** Problemy z implementacją
+W przypadku większości funkcji gradient ,,uciekał'' do nieskończoności. W celu zapobiegnięcia takim sytuacjom staramy się znaleźć krok $s$ taki, aby $s \in \left[0;\frac{1}{\nabla f}\right]$. Dzięki temu mamy pewność, że wartość zmian $x$ nie ,,przeskoczy'' minimum i nie ,,ucieknie''.
+* Testy
+** Funkcja "podstawowa"
+Dla funkcji, którą zdefiniowaliśmy wcześniej
+#+name: test_base
+#+begin_src R :exports both
+dfp(f, c(1,1), 1e-6)
+#+end_src
+
+#+RESULTS:
+| 0.475814583132696 |
+| 0.474830972086607 |
+
+Zbiega się ona w zaledwie 15 iteracjach.
+** Funkcja testująca
+Dodatkowo sprawdzimy wyniki dla funkcji Beale'a, która ma minimum dla $f(3, 0.5)=0$.
+#+name: test_beale
+#+begin_src R :exports both
+beale <- function(x) {
+  el1 <- (1.5-x[1]+x[1]*x[2])^2
+  el2 <- (2.25-x[1]+x[1]*x[2]^2)^2
+  el3 <- (2.625-x[1]+x[1]*x[2]^3)^2
+  return(el1+el2+el3)
+}
+dfp(beale, c(1,1), 1e-6)
+#+end_src
+
+#+RESULTS:
+|  2.99996324899107 |
+| 0.499991321090635 |
+
+Tej funkcji ,,zbiegnięcie się'' zajmuje dużo dłużej, jednak jest ono osiągnięte - po 415 iteracjach.
+
+* Wizualizacje
+** Wykresy - iteracja 1
+#+name: plotting_dfp_help
+#+begin_src R :exports none :results silent
+dfp <- function(f, x, eps, it_lim, res = 60) {
+  x <- matrix(x)
+  B <- diag(dim(x)[1])
+  dx <- matrix(c(Inf,Inf))
+  i<- 0
+  repeat {
+    i <- i+1
+    H <- solve(B)
+    gradfx <- grad(f, x)
+    stepf <- function(step) f(x-step*gradfx)
+    step <- golden(stepf, 0, 1/sqrt(sum(gradfx^2)), 1e-4)
+    dx <- -H%*%gradfx*step
+    B <- new_B(B, dx, grad(f,x+dx)-gradfx)
+    x <- x + dx
+    if (i == it_lim) {
+      return(x)
+    }
+  }
+}
+#+end_src
+
+
+#+name: plotting
+#+begin_src R :exports none :results silent iterations=0
+pdf(paste("plot", iterations, ".pdf", sep = ""))
+fu <- function(x, y) (x^2+1)*(y^4+1)-5-x-y+0.5*y^2
+xs <- seq(-1, 1, length.out = res)
+ys <- seq(-1, 1, length.out = res)
+zs <- outer(xs, ys, fu)
+x <- dfp(f, c(1,1), 1e-4, it_lim = iterations)
+filled.contour(xs, ys, zs, nlevels = 20, plot.axes={points(x[1], x[2]); axis(1); axis(2)})
+a <- dev.off()
+#+end_src
+
+#+CALL: plotting[:exports none :results silent](iterations=1)
+[[./plot1.pdf]]
+** Wykresy - iteracja 2
+#+CALL: plotting[:exports none :results silent](iterations=2)
+[[./plot2.pdf]]
+** Wykresy - iteracja 3
+#+CALL: plotting[:exports none :results silent](iterations=3)
+[[./plot3.pdf]]
+** Wykresy - iteracja 4
+#+CALL: plotting[:exports none :results silent](iterations=4)
+[[./plot4.pdf]]
+** Wykresy - iteracja 5
+#+CALL: plotting[:exports none :results silent](iterations=5)
+[[./plot5.pdf]]
+* Tangling :noexport:
+#+begin_src R :tangle dfp.R :noweb yes
+<<fun>>
+<<deps>>
+<<newb>>
+<<golden>>
+<<dfp>>
+<<test_base>>
+<<test_beale>>
+#+end_src
